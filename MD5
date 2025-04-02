@@ -1,10 +1,12 @@
-f32867ca8e406cb75ff28f106651425a *DESCRIPTION
+f81d3a24cf9a373bce79cfdcccfc1f67 *DESCRIPTION
 378ef97456dc1178dda7f70982239651 *LICENSE
 f16da4fab7dbc2c310e51684094d3cde *NAMESPACE
+885c6917a90e42dcd243dcbddcebe048 *NEWS.md
 f830dd2be6fc1cd168f0934b9c4653fc *R/tic_analyse.R
 d1acefb63ea70426f902519473a67f45 *R/tic_auc.R
 a9b40e5bdffa6b1b010686357226cd2a *R/ttpeak.R
-89ea5f42d43178066adbdb78ead0645a *build/vignette.rds
+dfa09bf4b826b0cab7e685c1e72af22b *build/vignette.rds
+067c211133a55421102b1de2573c62f7 *inst/CITATION
 a5dfce9b7bf1ff0b77aac28edf71d8c2 *inst/doc/tican-vignette.R
 c528a2837763e7c6ee37ac0bdda10d3d *inst/doc/tican-vignette.Rmd
 43863cadadcdf2ae73f35bcda2938b68 *inst/doc/tican-vignette.html
