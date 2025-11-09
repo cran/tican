@@ -4,7 +4,7 @@
 #' is smoothed using a loess smoother, and the time of peak is returned. Time to a
 #' specified proportion of the peak (e.g. time to 90% of peak) can be calculated.
 #' It is recommended that plotresult is set to TRUE in the first instance to visually
-#' deconfirm the analysis.
+#' confirm the analysis.
 #'
 #'
 #' @importFrom graphics abline lines title
@@ -25,28 +25,8 @@
 #'
 #' @examples
 #'
-#' # Example usage:
+#' # Example usage: Please see package vignettes on CRAN
 #'
-#' # Generating simulated data
-#' set.seed(123)
-#' example_data <- data.frame(time = seq(0, 82, by = 0.25))
-#' random_vals <- sample(1:10, nrow(example_data), replace = TRUE)
-#' example_data$regionA_intensity <- log(example_data$time + 1) * 50 -
-#'   example_data$time * 2 + random_vals
-#' example_data$regionB_intensity <- log(example_data$time + 7, base = 10) *
-#'   80 - example_data$time * 1.5 + random_vals
-#'
-#' # Example with defaults:
-#'
-#' ttpeak(data = example_data, timevar = "time", intensityvar = "regionA_intensity")
-#'
-#' # Example with additional arguments:
-#'
-#' ttpeak(data = example_data, timevar = "time", intensityvar = "regionA_intensity",
-#'                   loess.span = 0.1, peakproportion = 0.9, plotresult = TRUE)
-#'
-#'
-
 ttpeak <- function(data,
                              timevar,
                              intensityvar,

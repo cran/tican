@@ -1,24 +1,66 @@
 ## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width = 7,      # inches
+  fig.height = 5,     # inches
+  dpi = 150,
+  out.width = "100%", # scale image to column width
+  fig.align = "center"
 )
 
 ## ----setup--------------------------------------------------------------------
 library(tican)
 
+## ----include=FALSE------------------------------------------------------------
+set.seed(123)
+time <- seq(0, 50, by = 0.5)
+
+# simulating data using gamma
+gamma_tic <- function(time, amplitude, arrival_time, alpha, beta, plateau) {
+  intensity <- numeric(length(time))
+  for (i in seq_along(time)) {
+    t <- time[i] - arrival_time
+    if (t <= 0) {
+      intensity[i] <- plateau
+    } else {
+      gamma_component <- amplitude * (t^alpha) * exp(-t/beta)
+      intensity[i] <- plateau + gamma_component
+    }
+  }
+  return(intensity)
+}
+
+# simulating data for 'regionA'
+regionA_intensity <- gamma_tic(
+  time = time,
+  amplitude = 20,
+  arrival_time = 5,
+  alpha = 2,
+  beta = 3,
+  plateau = 0
+) + rnorm(length(time), 0, 2.5)
+
+# simulating data for 'regionB'
+regionB_intensity <- gamma_tic(
+  time = time,
+  amplitude = 25,
+  arrival_time = 3,
+  alpha = 1.5,
+  beta = 2,
+  plateau = 0
+) + rnorm(length(time), 0, 1)
+
+
+example_data <- data.frame(
+  time = time,
+  regionA_intensity = regionA_intensity,
+  regionB_intensity = regionB_intensity
+)
+
 ## -----------------------------------------------------------------------------
 
-# Simulating example data
-set.seed(123)
-example_data <- data.frame(time = seq(0, 82, by = 0.25))
-random_vals <- sample(1:10, nrow(example_data), replace = TRUE)
-example_data$regionA_intensity <- log(example_data$time + 1) * 50 -
-  example_data$time * 2 + random_vals
-example_data$regionB_intensity <- log(example_data$time + 7, base = 10) *
-  80 - example_data$time * 1.5 + random_vals
-
-# Showing dataframe structure
+# Showing structure of example dataframe
 
 head(example_data,5)
 
@@ -42,7 +84,17 @@ print(result)
 ## -----------------------------------------------------------------------------
 
 result <- tic_analyse(example_data,"time","regionA_intensity",
-                           loess.span = 0.5, # altering from default of 0.1
+                           calc_wir = TRUE,
+                           calc_wor = TRUE
+                      )
+
+print(result)
+
+
+## -----------------------------------------------------------------------------
+
+result <- tic_analyse(example_data,"time","regionA_intensity",
+                           loess.span = 0.15, # altering from default of 0.1
                            degree = 1) # adding a loess() argument
 
 print(result)
